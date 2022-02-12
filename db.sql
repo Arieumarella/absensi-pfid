@@ -584,6 +584,25 @@ insert  into `tb_daerah`(`id_provinsi`,`idx`,`city_name`) values
 (35,4,'Kab. Tana Tidung'),
 (35,51,'Kota Tarakan');
 
+/*Table structure for table `tb_download` */
+
+DROP TABLE IF EXISTS `tb_download`;
+
+CREATE TABLE `tb_download` (
+  `idx` bigint(255) NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) NOT NULL,
+  `nama_asli` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  PRIMARY KEY (`idx`),
+  KEY `idx` (`idx`),
+  KEY `nama` (`nama`),
+  KEY `slug` (`slug`),
+  KEY `nama_asli` (`nama_asli`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
+/*Data for the table `tb_download` */
+
 /*Table structure for table `tb_event` */
 
 DROP TABLE IF EXISTS `tb_event`;

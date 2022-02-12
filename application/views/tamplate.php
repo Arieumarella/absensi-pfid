@@ -154,6 +154,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <?php $dashboard = $tittle == 'Data Download' ? 'active' : '' ; ?>
+            <a href="<?php echo base_url();?>c_download" class="nav-link <?php echo $dashboard; ?>">
+            <i class="nav-icon fas fa-cloud-download-alt"></i>
+              <!-- <i class="nav-icon fas fa-download"></i> -->
+              <p>Download</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?php echo base_url();?>C_login/Distroy" class="nav-link">
               <i class="nav-icon fas fa-power-off"></i>
               <p>Log Out</p>
@@ -334,6 +342,43 @@
         "columnDefs": [
         { 
             "targets": [ 0,1,2,3,4,5,6 ], //first column / numbering column
+            "className": "text-center",
+            "orderable": false
+        }
+        ],
+ 
+    });
+
+    var tDownload = $('#tabelDownload').DataTable({ 
+        "responsive": true,
+        "lengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+        "processing": true, //Feature control the processing indicator.
+        "serverSide": true, //Feature control DataTables' server-side processing mode.
+        "order": [], //Initial no order.
+        "orderable": false,
+        bAutoWidth: false,
+        aoColumns : [
+          { sWidth: '8%' },
+          { sWidth: 'auto' },
+          { sWidth: 'auto' },
+        ],
+        // Load data for the table's content from an Ajax source
+        "ajax": {
+            "url": "<?php echo site_url('C_download/get_data_tables')?>",
+            "type": "POST",
+            "dataType": 'json',
+            "data": function ( data ) {
+                // data.daerah = $('#daerah').val();
+                // data.bidang = $('#bidang').val();
+                // data.nama_pegawai = $('#nama_pegawai').val();
+                // data.tahun = $('#tahun').val();
+            },
+        },
+ 
+        // Set column definition initialisation properties.
+        "columnDefs": [
+        { 
+            "targets": [ 0,1,2 ], //first column / numbering column
             "className": "text-center",
             "orderable": false
         }
