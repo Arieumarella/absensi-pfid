@@ -1,5 +1,5 @@
 /*
-SQLyog Ultimate v12.5.1 (64 bit)
+SQLyog Professional v13.1.1 (64 bit)
 MySQL - 5.7.33 : Database - db-absensi
 *********************************************************************
 */
@@ -45,7 +45,7 @@ CREATE TABLE `tb_bidang` (
   PRIMARY KEY (`idx`),
   KEY `id_slug` (`id_slug`),
   KEY `idx` (`idx`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_bidang` */
 
@@ -54,8 +54,7 @@ insert  into `tb_bidang`(`idx`,`id_slug`,`nama_bidang`,`created_at`,`updated_at`
 (4,4,'Sanitasi','2021-09-26',NULL),
 (17,7,'Irigasi','2021-11-18','2022-01-13'),
 (18,8,'Air Minum','2022-01-13',NULL),
-(19,9,'Perumahan & Permukiman','2022-01-13','2022-02-18'),
-(20,10,'Other','2022-02-18',NULL);
+(19,9,'Perumahan','2022-01-13',NULL);
 
 /*Table structure for table `tb_daerah` */
 
@@ -600,7 +599,7 @@ CREATE TABLE `tb_download` (
   KEY `nama` (`nama`),
   KEY `slug` (`slug`),
   KEY `nama_asli` (`nama_asli`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_download` */
 
@@ -618,7 +617,6 @@ CREATE TABLE `tb_event` (
   `slug_bidang` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `for_use` enum('0','1') DEFAULT '0',
   PRIMARY KEY (`idx`),
   KEY `idx` (`idx`),
   KEY `name_event` (`name_event`),
@@ -627,13 +625,12 @@ CREATE TABLE `tb_event` (
   KEY `date_start` (`date_start`),
   KEY `date_finish` (`date_finish`),
   KEY `slug_bidang` (`slug_bidang`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_event` */
 
-insert  into `tb_event`(`idx`,`name_event`,`location`,`date_event`,`date_start`,`date_finish`,`slug_bidang`,`created_at`,`updated_at`,`for_use`) values 
-(1,'Test 1','Jakarta','2022-07-14','02:15','14:10','3,4,7,8,9','2022-02-08 08:13:00',NULL,'0'),
-(4,'sdfgsdfghds','fasdfasdf','2022-02-16','02:10','selesai','10','2022-02-18 06:26:00','2022-02-18 06:32:00','0');
+insert  into `tb_event`(`idx`,`name_event`,`location`,`date_event`,`date_start`,`date_finish`,`slug_bidang`,`created_at`,`updated_at`) values 
+(1,'Test 1','Jakarta','2022-07-14','02:15','14:10','3,4,7,8,9','2022-02-08 08:13:00',NULL);
 
 /*Table structure for table `tb_peserta` */
 
@@ -643,9 +640,9 @@ CREATE TABLE `tb_peserta` (
   `idx` bigint(255) NOT NULL AUTO_INCREMENT,
   `name_peserta` varchar(255) NOT NULL,
   `jabatan` varchar(255) NOT NULL,
-  `slug_bidang` bigint(255) DEFAULT NULL,
-  `slug_provinsi` bigint(255) DEFAULT NULL,
-  `slug_daerah` bigint(255) DEFAULT NULL,
+  `slug_bidang` bigint(255) NOT NULL,
+  `slug_provinsi` bigint(255) NOT NULL,
+  `slug_daerah` bigint(255) NOT NULL,
   `instansi` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `optional` text,
@@ -661,15 +658,13 @@ CREATE TABLE `tb_peserta` (
   KEY `slug_provinsi` (`slug_provinsi`),
   KEY `slug_daerah` (`slug_daerah`),
   KEY `slug_event` (`slug_event`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
 
 /*Data for the table `tb_peserta` */
 
 insert  into `tb_peserta`(`idx`,`name_peserta`,`jabatan`,`slug_bidang`,`slug_provinsi`,`slug_daerah`,`instansi`,`email`,`optional`,`slug_event`,`created_at`,`updated_at`,`tlp`) values 
 (23,'al razli','Subkoor',4,4,3,'PFID','al.razli.umarella.15111020@gmail.com',NULL,1,'2022-02-08 09:10:00',NULL,'089530518554'),
-(24,'wqedqwdeqwdqw','qwdqwdqwd',7,4,3,'qwdqwdqwdqwdqwdqwd','sadasdasdasd@sdfsdfsdfsdf',NULL,1,'2022-02-08 09:18:00',NULL,'342345245425234'),
-(25,'dsafgads','asdfasdf',NULL,NULL,NULL,'dsfa','al.razli.umarella.15111020@gmail.com',NULL,2,'2022-02-18 06:11:00',NULL,'089530518554'),
-(26,'fdghdfghdfgh','fgdhdfg',4,3,2,'dfghdfgh','al.razli.umarella.15111020@gmail.com',NULL,3,'2022-02-18 06:12:00',NULL,'089530518554');
+(24,'wqedqwdeqwdqw','qwdqwdqwd',7,4,3,'qwdqwdqwdqwdqwdqwd','sadasdasdasd@sdfsdfsdfsdf',NULL,1,'2022-02-08 09:18:00',NULL,'342345245425234');
 
 /*Table structure for table `tb_provinsi` */
 

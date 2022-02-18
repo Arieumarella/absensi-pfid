@@ -97,7 +97,18 @@
                           <input type="text" class="form-control clockTest mt-2" name="setWaktuAkhir" id="waktuAkhirInput">
                         </div>
             </div>
-
+            <div class="form-group">
+              <label for="namaBidang" class="col-form-label">Peruntukan :</label>
+              <br>
+                        <div class="custom-control custom-radio d-inline mr-2">
+                          <input class="custom-control-input custom-control-input-danger" type="radio" id="forUse1" checked name="forUse" value="0">
+                          <label for="forUse1" class="custom-control-label">Daerah</label>
+                        </div>
+                        <div class="custom-control custom-radio d-inline">
+                          <input class="custom-control-input custom-control-input-danger" type="radio" id="forUse2" name="forUse" value="1">
+                          <label for="forUse2" class="custom-control-label">Pusat</label>
+                        </div>
+            </div>
             <div class="form-group">
               <label for="namaBidang" class="col-form-label">Lokasi :</label>
               <input type="text" class="form-control" name="lokasi" id="lokasi">
@@ -165,6 +176,18 @@
                         <div>
                           <input type="text" class="form-control mt-2" name="waktuAkhirInput" value="Selesai" disabled id="selesai2">
                           <input type="text" class="form-control clockTest mt-2" name="setWaktuAkhir" id="waktuAkhirInput2">
+                        </div>
+            </div>
+            <div class="form-group">
+              <label for="namaBidang" class="col-form-label">Peruntukan :</label>
+              <br>
+                        <div class="custom-control custom-radio d-inline mr-2">
+                          <input class="custom-control-input custom-control-input-danger" type="radio" id="forUse3" checked name="forUse2" value="0">
+                          <label for="forUse3" class="custom-control-label">Daerah</label>
+                        </div>
+                        <div class="custom-control custom-radio d-inline">
+                          <input class="custom-control-input custom-control-input-danger" type="radio" id="forUse4" name="forUse2" value="1">
+                          <label for="forUse4" class="custom-control-label">Pusat</label>
                         </div>
             </div>
 
@@ -246,7 +269,7 @@ function getBidang() {
         for(let i = 0; i < res.length; i++){     
 
          html += `<div class="custom-control custom-checkbox">`;
-            html += `<input class="custom-control-input bidangDicentang custom-control-input-success" type="checkbox" id="`+res[i].id_slug+`" name="bidang[]"   value="`+res[i].id_slug+`">`;
+            html += `<input class="custom-control-input bidangDicentang custom-control-input-success bidang-class" type="checkbox" id="`+res[i].id_slug+`" name="bidang[]"   value="`+res[i].id_slug+`">`;
              html +=   `<label for="`+res[i].id_slug+`" class="custom-control-label">`+res[i].nama_bidang+`</label>
               </div>`;
         }
@@ -298,12 +321,28 @@ $('#tglEvnt2').datepicker({
 
 // Proses Tambah Data
 save = function (){
-  
+  var namEvent = $('#namaEvent').val();
+  var tglEvnt = $('#tglEvnt').val();
+  var clockTest = $('#clockTest').val();
+  var lokasi = $('#lokasi').val();
+  var bidang = $('.bidang-class').is(":checked")
+
+
+ if(namEvent.length == 0 || tglEvnt.length == 0 || clockTest.length == 0 || lokasi.length == 0){
+  error('Info', 'Silahkan lengkapi form terlebih dahulu.');
+  return;
+ }
+
+ if(bidang != true){
+  error('Info', 'Silahkan Pilih Bidang jika tidak pilih Other.');
+  return;
+ }   
     $.ajax({
         url: base_url()+'C_event/save',
         type: "post",
         data: $("#formTambah").serialize(),
         success: function (res) {
+        
        
         reset();
         success('SUCCESS', 'Data Disimpan');
@@ -389,9 +428,13 @@ $.ajax({
         dataType: 'json',
         data: {slug_id:slg_id},
         success: function (res) {
-        console.log(res);
-        // $('#edit').val(res.id_sender);
-        // $('#slg_edit').val(res.id_slug);
+        if(res.for_use == '0'){
+          $('#forUse3').attr( 'checked', true )
+          $('#forUse4').attr( 'checked', false )
+        }else{
+          $('#forUse3').attr( 'checked', false )
+          $('#forUse4').attr( 'checked', true )
+        } 
         $('#namaEvent2').val(res.name_event);
         $('#idx').val(res.idx);
         $('#tglEvnt2').val(res.date_event);

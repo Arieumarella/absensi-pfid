@@ -139,6 +139,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
     <!-- Main content -->
+    
     <div class="content">
       <div class="container">
         <div class="row justify-content-center align-items-center">
@@ -192,7 +193,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <input type="text" class="form-control" name="instansi" id="instansi" placeholder="Input Instansi.">
                     <input type="hidden" name="slug_event" id="slug_event" value="<?php echo $dataEvent->idx; ?>">
                   </div>
-
+              <?php if($dataEvent->for_use != '1'){?>
                <div class="form-group ">
                   <label>Pilih Bidang :</label>
                   <div class="text-center">
@@ -224,14 +225,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   </select>
                   </div>
             </div>
+            <?php } ?>
             <div class="form-group">
                     <label for="email">Email :</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Input Email.">
             </div>
             <div class="form-group">
-                    <label for="tlp">No Telfon/WA :</label>
-                    <input type="number" class="form-control" name="tlp" id="tlp" placeholder="Input Telfon/WA.">
-                    <p style="color: #800000; font-size: 15px;"><i>*Harap Mengisikan Nomor Telfon yange telah Terdaftar dengan Whatsapp</i></p>
+                    <label for="tlp">No Telepon/WA :</label>
+                    <input type="number" class="form-control" name="tlp" id="tlp" placeholder="Input Telepon/WA.">
+                    <p style="color: #800000; font-size: 15px;"><i>*Harap Mengisikan Nomor Telepon yang telah Terdaftar dengan Whatsapp</i></p>
             </div>
                   <button class="btn btn-sm btn-success" style="float: right"; onclick="saveForm();"><din id="normalForm"><i class="fas fa-cloud-upload-alt"></i> <b>SUBMIT</b></din>
                  
@@ -347,7 +349,7 @@ $( document ).ready(function() {
     let slug_event = $('#slug_event').val();
 
 
-    if ( bidang == 0 || provinsi == 0 || kota == 0 || name.length == 0 || jabatan.length == 0 || instansi.length == 0 ) {
+    if (  name.length == 0 || jabatan.length == 0 || instansi.length == 0 ) {
 
       info('Info', 'Silakan Lengkapi Form Terlebih Dahulu.');
 
@@ -361,6 +363,15 @@ $( document ).ready(function() {
         info('Info', 'Silahkan isikan Email yang Valid.');
         return;
       }
+
+      <?php if($dataEvent->for_use != '1'){?>
+
+      if( provinsi == 0 || kota == 0 || bidang == 0){
+        info('Info', 'Silahkan Pilih (Provinsi / Kota / Bidang) terlebih dahulu.');
+        return;
+      }
+
+      <?php } ?>
 
 
       $.ajax({

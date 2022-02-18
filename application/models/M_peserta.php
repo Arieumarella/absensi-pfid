@@ -36,10 +36,10 @@ private function _get_datatables_query($tabel, $colom_order, $colom_search, $ord
         }
         $this->db->select($select);
         $this->db->from($tabel);
-         $this->db->join('tb_event', 'tb_peserta.slug_event = tb_event.idx', 'INNER');
-        $this->db->join('tb_bidang', 'tb_peserta.slug_bidang = tb_bidang.id_slug', 'INNER');
-        $this->db->join('tb_provinsi', 'tb_peserta.slug_provinsi = tb_provinsi.id_slug', 'INNER');
-        $this->db->join('tb_daerah', 'tb_peserta.slug_daerah  = tb_daerah.idx and tb_peserta.slug_provinsi=tb_daerah.id_provinsi', 'INNER');
+         $this->db->join('tb_event', 'tb_peserta.slug_event = tb_event.idx', 'left');
+        $this->db->join('tb_bidang', 'tb_peserta.slug_bidang = tb_bidang.id_slug', 'left');
+        $this->db->join('tb_provinsi', 'tb_peserta.slug_provinsi = tb_provinsi.id_slug', 'left');
+        $this->db->join('tb_daerah', 'tb_peserta.slug_daerah  = tb_daerah.idx and tb_peserta.slug_provinsi=tb_daerah.id_provinsi', 'left');
         $i = 0;
      
         foreach ($colom_search as $item) // loop column 

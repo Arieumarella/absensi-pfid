@@ -60,6 +60,7 @@ class C_event extends CI_Controller {
 		$ValuewaktuAkhir = $this->input->post('setWaktuAkhir');
 		$lokasi = $this->input->post('lokasi');
 		$bidang = $this->input->post('bidang');
+		$forUse = $this->input->post('forUse');
  		
 		$data = array(
 			'name_event' => $nama_event,
@@ -67,8 +68,11 @@ class C_event extends CI_Controller {
 			'date_start' => $waktuMulai,
 			'location' => $lokasi,
 			'slug_bidang' => implode(",", $bidang),
+			'for_use' => $forUse,
 			'created_at' => date('Y-m-d h:i')
 		);
+
+		
 
 		if ($waktuAkhir != 'selesai') {
 			$data['date_finish'] = $ValuewaktuAkhir;
@@ -108,6 +112,7 @@ class C_event extends CI_Controller {
 		$lokasi = $this->input->post('lokasi');
 		$bidang = $this->input->post('bidang');
 		$idx = $this->input->post('idx');
+		$forUse2 = $this->input->post('forUse2');
 
 		$data = array(
 			'name_event' => $nama_event,
@@ -115,7 +120,8 @@ class C_event extends CI_Controller {
 			'date_start' => $waktuMulai,
 			'location' => $lokasi,
 			'slug_bidang' => implode(",", $bidang),
-			'updated_at' => date('Y-m-d h:i')
+			'updated_at' => date('Y-m-d h:i'),
+			'for_use' => $forUse2
 		);
 
 		if ($waktuAkhir != 'selesai') {
