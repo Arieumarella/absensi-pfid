@@ -7,9 +7,7 @@ class C_formulir extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_dinamis');
-		if($this->session->userdata('logged') != TRUE){
-			redirect(base_url("C_login"));
-		}
+		
 	}
 
 	public function index($id = NULL)
